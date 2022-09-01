@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soyaa.moonlam.user.dao.UserDAO">
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO 
+ 			`user`
+ 		(
+ 			`phEmail`
+ 			, `name`
+ 			, `loginId`
+ 			, `password`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		)
+ 		VALUE
+ 		(
+ 			#{phEmail}
+ 			, #{name}
+ 			, #{userName}
+ 			, #{password}
+ 			, now()
+ 			, now()
+ 		)
+ 	</insert>
+ </mapper>

@@ -20,21 +20,22 @@
 <body>
 
 	<div class="container">
-		<section class="contents d-flex justify-content-center">
-			<div class="main-content border border-warning rounded container-fluid row justify-content-center align-items-center">
-				<h1 class="mt-1 text-dark font-weight-bold">MoonLam</h1>
-				<span class="col-10">친구들의 사진과 동영상을 보려면 가입하세요.</span>
+		<form id="signupForm">			
+			<section class="contents d-flex justify-content-center">
+				<div class="main-content border border-warning rounded container-fluid row justify-content-center align-items-center">
+					<h1 class="mt-1 text-dark font-weight-bold">MoonLam</h1>
+					<span class="col-10">친구들의 사진과 동영상을 보려면 가입하세요.</span>
 				
-								
-				<input type="text" placeholder="휴대폰 번호 또는 이메일 주소" class="form-control col-10">
-				<input type="text" placeholder="성명" class="form-control col-10">
-				<input type="text" placeholder="사용자 이름" class="form-control col-10">
-				<input type="password" placeholder="비밀번호" class="form-control col-10">
+					<input type="text" placeholder="휴대폰 번호 또는 이메일 주소" class="form-control col-10" id="phEmailInput">
+					<input type="text" placeholder="성명" class="form-control col-10" id="nameInput">
+					<input type="text" placeholder="사용자 이름" class="form-control col-10" id="userNameInput">
+					<input type="password" placeholder="비밀번호" class="form-control col-10" id="passwordInput">
+					<input type="password" placeholder="비밀번호 중복확인" class="form-control col-10" id="duplicatePasswordInput">
 				
-				
-				<button type="submit" class="btn btn-warning text-white form-control col-10">가입</button>
-			</div>
-		</section>
+					<button type="submit" class="btn btn-warning text-white form-control col-10 mb-3">가입</button>
+				</div>
+			</section>
+		</form>
 		<footer class="d-flex justify-content-center">
 			<div class="sub-content border border-warning rounded container-fluid row justify-content-center align-items-center mt-4">
 				<h5 class="text-secondary">계정이 있으신가요?</h5>
@@ -42,6 +43,63 @@
 			</div>
 		</footer>
 	</div>
+
+	<script>
+		$(document).ready(function() {
+			$("#signupForm").on("submit", function(e) {
+				e.preventDefault();
+				
+				let phEmail = $("#phEmailInput").val();
+				let name = $("#nameInput").val();
+				let userName = $("#userNameInput").val();
+				let password = $("#passwordInput").val();
+				let duplicatePassword = $("#duplicatePasswordInput").val();
+				
+				if(phEmail == "") {
+					alert("휴대폰 번호 또는 이메일을 입력하세요.");
+					return;
+				}
+				
+				if(name == "") {
+					alert("이름을 입력하세요.");
+					return;
+				}
+				
+				if(userName == "") {
+					alert("사용자 이름을 입력하세요.");
+					return;
+				}
+				
+				if(password == "") {
+					alert("비밀번호를 입력하세요.");
+					return;
+				}
+				
+				if(password != duplicatePassword) {
+					alert("비밀번호가 일치하지 않습니다.");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/user/signup"
+					, data:{"phEmail":phEmail, "name":name, "userName":userName, "password":password}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/user/signin/view"
+						} else {
+							alert("회원가입 실패");
+						}
+					}
+					, error:function() {
+						alert("회원가입 에러");
+					}
+					
+				});
+			});
+			
+		});
+	</script>
 
 </body>
 </html>
