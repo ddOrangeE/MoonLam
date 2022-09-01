@@ -43,4 +43,12 @@ public class UserRestController {
 		return result;
 	}
 	
+	// 로그인 기능
+	@PostMapping("/signin")
+	public Map<String, String> signin(
+			@RequestParam("loginId") String loginId
+			, @RequestParam("password") String password) {
+		
+	}
+	
 }
