@@ -14,13 +14,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-	<link rel="stylesheet" href="/static/css/style.css" type="text/css">
+	<link rel="stylesheet" href="/static/css/signup.css" type="text/css">
 
 </head>
 <body>
 
 	<div class="container">
-		<header></header>
 		<section class="contents d-flex justify-content-center">
 			<div class="main-content border border-warning rounded container-fluid row justify-content-center align-items-center">
 				<h1 class="mt-1 text-dark font-weight-bold">MoonLam</h1>
@@ -30,10 +29,10 @@
 				<input type="text" placeholder="휴대폰 번호 또는 이메일 주소" class="form-control col-10">
 				<input type="text" placeholder="성명" class="form-control col-10">
 				<input type="text" placeholder="사용자 이름" class="form-control col-10">
-				<input type="text" placeholder="비밀번호" class="form-control col-10">
+				<input type="password" placeholder="비밀번호" class="form-control col-10">
 				
 				
-				<button type="submit" class="btn btn-warning form-control col-10">가입</button>
+				<button type="submit" class="btn btn-warning text-white form-control col-10">가입</button>
 			</div>
 		</section>
 		<footer class="d-flex justify-content-center">

@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.contents > .main-content {
+	width:400px;
+	height:650px;
+}
+
+.main-content > .signup-page {
+	width:350px;
+	height:150px;
+}
