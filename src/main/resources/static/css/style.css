@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.contents > .main-content {
+	width:400px;
+	height:500px;
+}
+
+footer {
+	height:180px;
+}
+
+footer > .sub-content {
+	width:400px;
+	height:150px;
+	
+}
