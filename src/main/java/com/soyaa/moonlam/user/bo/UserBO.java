@@ -23,21 +23,57 @@ public class UserBO {
 	}
 	
 	// 로그인
-	public User getUser(String userName, String password) {
+	public User getUser(String id, String password) {
 		
 		String phEmail = null;
 		String loginId = null;
 		
-		String phonePattern = "/^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/";
+//		String phonePattern = "/^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/";
+		String phonePattern = "/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/\r\n";
+		
 		String emailPattern = "/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i\r\n";
 		
-		 if(RegexMatcher.matches(phonePattern, loginId) || RegexMatcher.matches(emailPattern, loginId)) {
+		String encryptPassword = EncryptUtils.md5(password);
+		
+//		 if(RegexMatcher.matches(phonePattern, id) || RegexMatcher.matches(emailPattern, id)) {
+//			 
+//			 phEmail = id;
+//			 
+//			 return userDAO.selectUser(phEmail, loginId, encryptPassword);
+//
+//		 } else {
+//			 
+//			 loginId = id;
+//			 
+//			 return userDAO.selectUser(phEmail, loginId, encryptPassword);
+//		 }
+		
+		if(loginId == id) {
 			 
-			 id = loginId;
+			 loginId = id;
 			 
-			 return userDAO.selectUser(phEmail, password);
+			 return userDAO.selectUser(phEmail, loginId, encryptPassword);
+
+		 } else {
 			 
+			 phEmail = id;
+			 
+			 return userDAO.selectUser(phEmail, loginId, encryptPassword);
 		 }
 		
+	}
+	
+	// id 중복확인
+	public boolean isDuplicate(String loginId) {
+		
+		int count = userDAO.selectCountLoginId(loginId);
+		
+//		if(count == 0) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+		
+		return count != 0;
 	}
 }
