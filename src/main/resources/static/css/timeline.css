@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+header {
+	height:80px;
+}
+
+
+section > .main-content {
+	width:500px;
+}
