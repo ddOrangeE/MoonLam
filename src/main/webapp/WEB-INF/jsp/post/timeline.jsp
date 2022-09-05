@@ -18,17 +18,7 @@
 </head>
 <body>
 	<div class="container">
-		<header class="d-flex justify-content-between align-items-center">
-			<a href="/post/timeline/view" style="text-decoration:none" class="col-3 ml-2"><h1 class="text-dark">MoonLam</h1></a>
-			<input type="text" placeholder="🔍검색" class="form-control col-4">
-			<div class="d-flex justify-content-between align-items-center col-5 mr-2">
-				<a href="#">home</a>
-				<a href="#">message</a>
-				<a href="#">createPost</a>
-				<a href="#">notice</a>
-				<a href="#">myPage</a>			
-			</div>
-		</header>
+		<c:import url="/WEB-INF/jsp/post/include/header.jsp" />
 		<hr>
 		<section class="d-flex justify-content-center">
 			<div class="main-content">
@@ -58,6 +48,7 @@
 				<h5 class="text-secondary ml-4">댓글 달기...</h5>
 			</div>
 		</section>
+		<c:import url="/WEB-INF/jsp/post/include/footer.jsp" />
 		
 	</div>
 	
