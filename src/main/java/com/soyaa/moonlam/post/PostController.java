@@ -13,4 +13,9 @@ public class PostController {
 	public String timelineView() {
 		return "post/timeline";
 	}
+	
+	@GetMapping("create/view")
+	public String postInput() {
+		return "post/input";
+	}
 }
