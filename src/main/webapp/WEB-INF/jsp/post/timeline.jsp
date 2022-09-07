@@ -32,7 +32,7 @@
 					<div class="d-flex justify-content-between">
 						<!-- 이름 -->
 						<h3 class="ml-2">${userName }</h3>
-						<h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3>
+						<a href="#"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
 					</div>
 					
 					<!-- 이미지 -->
