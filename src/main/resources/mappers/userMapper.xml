@@ -49,4 +49,18 @@
  		WHERE
  			`loginId` = #{loginId} 		
  	</select>
+ 	<select id="selectUserById" parameterType="int" resultType="com.soyaa.moonlam.user.model.User">
+ 		SELECT 
+ 			`id`
+ 			, `phEmail`
+ 			, `name`
+ 			, `loginId`
+ 			, `password`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`id` = #{id} 			
+ 	</select>
  </mapper>

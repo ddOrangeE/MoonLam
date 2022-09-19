@@ -34,7 +34,7 @@
 					<!-- 뒤로가기/ 공유하기 -->
 					<div class="d-flex justify-content-between">
 						<a href="/post/timeline/view"><img alt="이전 화살표" width="50px"; src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/7.0.0/png/iconmonstr-arrow-left-lined.png&r=255&g=200&b=18"></a>
-						<button type="button" class="btn btn-link text-warning"><h5>공유하기</h5></button>				
+						<button type="button" class="btn btn-link text-warning" id="uploadBtn"><h5>공유하기</h5></button>				
 					</div>
 					<!-- 뒤로가기/ 공유하기 -->
 					
@@ -49,7 +49,7 @@
 					
 					<!-- 문구 입력 -->
 					<div class="d-flex justify-content-center mt-3">
-						<textarea class="text-secondary col-6 form-control" rows="15">문구입력...</textarea>			
+						<textarea class="text-secondary col-6 form-control" rows="15" id="contentInput">문구입력...</textarea>			
 					</div>	
 					<!-- 문구 입력 -->
 					
@@ -76,6 +76,53 @@
 	
 	<script>
 		$(document).ready(function() {
+			
+			$("#uploadBtn").on("click", function() {
+				
+				let content = $("#contentInput").val();
+				
+				/*
+				content 는 비어있어도 되는 것으로 만들었기 때문에 벨리데이션 필요없음
+				if(content == "") {
+					alert("내용을 입력하세요!");
+					return;
+				}
+				*/
+				
+				// 파일에 대한 유효성 검사 (0번째 인덱스의 파일의 길이가 0이다 == 파일이 비어있다)
+				if($("#fileInput")[0].files.length == 0) {
+					alert("이미지를 선택해주세요.");
+					return;
+				}
+				
+				let formData = new FormData();
+				formData.append("content", content);
+				formData.append("file", $("#fileInput")[0].files[0]);
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/create"
+					, data:formData
+					// 인코딩 타입
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
+					
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/post/timeline/view";
+							
+							// 페이지 새로고침
+							// location.reload();
+						} else {
+							alert("업로드 실패");
+						}
+					}
+					, error:function() {
+						alert("업로드 에러");
+					}
+				});
+			});
 			
 			$("#imageIcon").on("click", function() {
 				// 파일 인풋을 클릭한 효과

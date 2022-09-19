@@ -26,69 +26,80 @@
 			<!-- 전체 -->
 			<div class="main-content border border-muted rounded py-3">
 				
-				<!-- 카드 -->				
+				<!-- 피드들~ -->				
 				<div class="mb-2">
-				
-					<div class="d-flex justify-content-between">
-						<!-- 이름 -->
-						<h3 class="ml-2">${userName }</h3>
-						<a href="#"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
-					</div>
 					
-					<!-- 이미지 -->
-					<div class="d-flex justify-content-center">
-						<img alt="게시물 이미지" class="w-100" src="https://file2.nocutnews.co.kr/newsroom/image/2021/10/01/202110011529180963_0.jpg">
-					</div>
-					<!-- 이미지 -->
-					
-					<!-- 아이콘 -->
-					<div class="d-flex">
-						<div class="col-4 d-flex">
-							<a href="#"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a> 
-							<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
-							<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
-						</div>
-						
-						<div class="col-4 d-flex justify-content-center">
-							<h3><i class="bi bi-three-dots"></i></h3>
-						</div>
-						
-						<div class="col-4 d-flex justify-content-end">
-							<a href="#"><h4 class="text-dark"><i class="bi bi-tag-fill"></i></h4></a>
-						</div>
-					</div>
-					<!-- 아이콘 -->
-					
-					<!-- 좋아요, 댓글, 댓글달기 -->
+					<c:forEach var="post" items="${postList }">
+					<!-- 카드 -->
 					<div>
-						<span class="ml-2 font-weight-bold">OtherName</span>님 여러 명이 좋아합니다. <br>
-						
-						<div class="mt-2">
-							<a href="#" class="ml-2">댓글 9개 모두 보기</a> <br>
+					
+						<div class="d-flex justify-content-between">
+							<!-- 이름 -->
+							<h3 class="ml-2">${userLoginId }</h3>
+							<a href="#"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
 						</div>
 						
-						<div class="mt-2">
-							<span class="ml-2 font-weight-bold">OtherName</span> 언니.. <br>
-							<span class="ml-2 font-weight-bold">OtherName</span> ...hihi <br>
+						<!-- 이미지 -->
+						<div class="d-flex justify-content-center">
+							<img alt="게시물 이미지" class="w-100" src="${post.imagePath }">
 						</div>
+						<!-- 이미지 -->
 						
-						<div class="mt-2">
-							<span class="small text-secondary ml-2">1일 전</span>						
+						<!-- 아이콘 -->
+						<div class="d-flex">
+							<div class="col-4 d-flex">
+								<a href="#"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a> 
+								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
+								<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
+							</div>
+							
+							<div class="col-4 d-flex justify-content-center">
+								<h3><i class="bi bi-three-dots"></i></h3>
+							</div>
+							
+							<div class="col-4 d-flex justify-content-end">
+								<a href="#"><h4 class="text-dark"><i class="bi bi-tag-fill"></i></h4></a>
+							</div>
 						</div>
+						<!-- 아이콘 -->
 						
-						<hr>
-						
-						<div class="d-flex mt-3">
-							<input type="text" class="text-secondary form-control border-0" placeholder="댓글 달기...">
-							<button type="button" class="btn btn-dark">입력</button>
+						<!-- 좋아요, 컨텐트 댓글, 댓글달기 -->
+						<div>
+							<span class="ml-2 font-weight-bold">OtherName</span>님 여러 명이 좋아합니다. <br>
+							
+							<div class="mt-2">
+								<span class="ml-2">${post.content }</span>
+							</div>
+							
+							<div class="mt-2">
+								<a href="#" class="ml-2">댓글 9개 모두 보기</a> <br>
+							</div>
+							
+							<div class="mt-2">
+								<span class="ml-2 font-weight-bold">OtherName</span> 언니.. <br>
+								<span class="ml-2 font-weight-bold">OtherName</span> ...hihi <br>
+							</div>
+							
+							<div class="mt-2">
+								<span class="small text-secondary ml-2">1일 전</span>						
+							</div>
+							
+							<hr>
+							
+							<div class="d-flex mt-3">
+								<input type="text" class="text-secondary form-control border-0" placeholder="댓글 달기...">
+								<button type="button" class="btn btn-dark">입력</button>
+							</div>
+							
 						</div>
-						
+						<!-- 좋아요, 댓글, 댓글달기 -->
+					
 					</div>
-					<!-- 좋아요, 댓글, 댓글달기 -->
+					<!-- 카드 -->
+					</c:forEach>
 					
 				</div>
-				<!-- 카드 -->
-
+				<!-- 피드들~ -->
 				
 			</div>
 			<!-- 전체 -->

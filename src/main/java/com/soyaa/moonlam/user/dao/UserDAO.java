@@ -24,5 +24,8 @@ public interface UserDAO {
 	
 	// id 중복확인
 	public int selectCountLoginId(@Param("loginId") String loginId);
+	
+	// user 테이블의 id를 통해서 사용자 정보를 얻어 오는 기능
+	public User selectUserById(@Param("id") int id);
 }
 

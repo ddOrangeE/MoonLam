@@ -76,4 +76,9 @@ public class UserBO {
 		
 		return count != 0;
 	}
+	
+	// user 테이블의 id를 통해서 사용자 정보를 얻어 오는 기능
+	public User getUserById(int id) {
+		return userDAO.selectUserById(id);
+	}
 }

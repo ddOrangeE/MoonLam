@@ -14,7 +14,7 @@
 				<a href="#"><i class="bi bi-heart"></i></a>
 				
 				<c:if test="${not empty userId }">
-					<a href="/user/signout">${userName }</a>
+					<a href="/user/signout">${userLoginId }</a>
 				</c:if>			
 			</div>
 		</header>
