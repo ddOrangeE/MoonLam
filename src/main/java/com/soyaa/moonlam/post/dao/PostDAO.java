@@ -17,5 +17,16 @@ public interface PostDAO {
 			, @Param("imagePath") String imagePath);
 	
 	public List<Post> sellectPostList();
+	
+	// 댓글 쓰기
+	public int insertComment(
+			@Param("userId") int userId
+			, @Param("postId") int postId
+			, @Param("content") String content);
 
+	
+	// 좋아요 추가
+	public int insertLike(
+			@Param("userId") int userId
+			, @Param("postId") int postId);
 }

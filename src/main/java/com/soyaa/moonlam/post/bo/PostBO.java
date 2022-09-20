@@ -1,5 +1,6 @@
 package com.soyaa.moonlam.post.bo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class PostBO {
 		// 게시글 하나당 작성자 정보를 조합하는 과정
 		List<Post> postList = postDAO.sellectPostList();
 		
+		List<PostDetail> postDetailList = new ArrayList<>();
+		
 		for(Post post : postList) {
 			
 			// userId 를 통해서 user 정보를 가지고 오는 기능
@@ -52,12 +55,27 @@ public class PostBO {
 			
 			// Post 객체와 User 을 하나로 묶어야 같이 사용할 수 있다 -> 합쳐서 처리할 새로운 클래스 필요하다! (PostDetail)
 			
+			// 직접 객체를 만들어서 데이터를 관리하는 방법 -> (DTO) BO 에서 가장 일반적으로 사용하는 방법
+			// BO : 데이터를 단순히 return 하는 게 아니라, controller, jsp 에서 사용하기 편리한 형식으로 바꾸어주는 기능 수행
 			PostDetail postDetail = new PostDetail();
 			postDetail.setPost(post);
 			postDetail.setUser(user);
 			
+			postDetailList.add(postDetail);
 		}
 		
-		return ;
+		return postDetailList;
+	}
+	
+	// 댓글 작성 기능
+	public int addComment(int userId, int postId, String content) {
+		
+		return postDAO.insertComment(userId, postId, content);
+		
+	}
+	
+	// 좋아요 추가 기능
+	public int addLike(int userId, int postId) {
+		return postDAO.insertLike(userId, postId);
 	}
 }

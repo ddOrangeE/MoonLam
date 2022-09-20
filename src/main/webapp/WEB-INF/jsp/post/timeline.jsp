@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MoonLam - ${userId }</title>
+<title>MoonLam - ${userLoginId }</title>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	     
@@ -24,31 +24,31 @@
 		<section class="d-flex justify-content-center">
 			
 			<!-- 전체 -->
-			<div class="main-content border border-muted rounded py-3">
+			<div class="main-content">
 				
 				<!-- 피드들~ -->				
-				<div class="mb-2">
+				<c:forEach var="postDetail" items="${postList }">
+				<div class="mb-2 border border-muted rounded py-3">
 					
-					<c:forEach var="post" items="${postList }">
 					<!-- 카드 -->
 					<div>
 					
 						<div class="d-flex justify-content-between">
 							<!-- 이름 -->
-							<h3 class="ml-2">${userLoginId }</h3>
+							<h3 class="ml-2">${postDetail.user.loginId }</h3>
 							<a href="#"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
 						</div>
 						
 						<!-- 이미지 -->
 						<div class="d-flex justify-content-center">
-							<img alt="게시물 이미지" class="w-100" src="${post.imagePath }">
+							<img alt="게시물 이미지" class="w-100" src="${postDetail.post.imagePath }">
 						</div>
 						<!-- 이미지 -->
 						
 						<!-- 아이콘 -->
 						<div class="d-flex">
 							<div class="col-4 d-flex">
-								<a href="#"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a> 
+								<a href="#" class="heart" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
 								<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
 							</div>
@@ -68,7 +68,8 @@
 							<span class="ml-2 font-weight-bold">OtherName</span>님 여러 명이 좋아합니다. <br>
 							
 							<div class="mt-2">
-								<span class="ml-2">${post.content }</span>
+								<b class="ml-2">${postDetail.user.loginId }</b> 
+								<span class="ml-1">${postDetail.post.content }</span>
 							</div>
 							
 							<div class="mt-2">
@@ -87,18 +88,19 @@
 							<hr>
 							
 							<div class="d-flex mt-3">
-								<input type="text" class="text-secondary form-control border-0" placeholder="댓글 달기...">
-								<button type="button" class="btn btn-dark">입력</button>
+								<input type="text" class="text-secondary form-control border-0" placeholder="댓글 달기..." id="commentInput${postDetail.post.id }">
+								<button type="button" class="commentBtn btn btn-dark" data-post-id="${postDetail.post.id }">입력</button>
 							</div>
 							
 						</div>
 						<!-- 좋아요, 댓글, 댓글달기 -->
+						
 					
 					</div>
 					<!-- 카드 -->
-					</c:forEach>
 					
 				</div>
+				</c:forEach>
 				<!-- 피드들~ -->
 				
 			</div>
@@ -110,5 +112,70 @@
 	</div>
 	<!-- 전체 -->
 	
+	<script>
+		$(document).ready(function() {
+			
+			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
+			// $(".heart").css("cursor","pointer").on("click", function() {
+				
+			$(".heart").on("click", function(e) {
+				
+				e.preventDefault();	
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/like"
+					, data:{"postId":postId}
+				
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 추가 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 추가 에러");
+					}
+					
+				});
+			});
+			
+			$(".commentBtn").on("click", function() {
+				
+				let postId = $(this).data("post-id");		
+				
+				let comment = $("#commentInput" + postId).val();
+				
+				
+				if(comment == "") {
+					alert("댓글을 입력하세요!");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/post/comment/create"
+					, data:{"postId":postId, "content":comment}
+				
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("댓글작성 실패");
+						}
+					}
+					, error:function() {
+						alert("댓글작성 에러");
+					}
+					
+				});
+				
+			});
+			
+		});
+	</script>
 </body>
 </html>

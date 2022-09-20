@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soyaa.moonlam.post.bo.PostBO;
-import com.soyaa.moonlam.post.model.Post;
+import com.soyaa.moonlam.post.model.PostDetail;
 
 @Controller
 @RequestMapping("/post")
@@ -21,9 +21,10 @@ public class PostController {
 	@GetMapping("timeline/view")
 	public String timelineView(Model model) {
 	
-		List<Post> postList = postBO.getPostList();
+		List<PostDetail> postList = postBO.getPostList();
 		
 		model.addAttribute("postList", postList);
+		
 		
 		return "post/timeline";
 	}
@@ -32,4 +33,5 @@ public class PostController {
 	public String postInput() {
 		return "post/input";
 	}
+	
 }
