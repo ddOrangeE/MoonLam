@@ -17,6 +17,11 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="/static/css/timeline.css" type="text/css">
 </head>
+<style>
+	.d-none {
+		display:none;
+	}
+</style>
 <body>
 	<div class="container">
 		<c:import url="/WEB-INF/jsp/post/include/header.jsp" />
@@ -49,6 +54,7 @@
 						<div class="d-flex">
 							<div class="col-4 d-flex">
 								<a href="#" class="heart" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+								<a href="#" class="heart" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon d-none"><i class="bi bi-heart-fill"></i></h4></a>
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
 								<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
 							</div>
@@ -121,6 +127,7 @@
 			$(".heart").on("click", function(e) {
 				
 				e.preventDefault();	
+				
 				
 				let postId = $(this).data("post-id");
 				
