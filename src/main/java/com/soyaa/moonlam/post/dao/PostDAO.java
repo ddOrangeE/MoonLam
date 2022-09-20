@@ -29,4 +29,9 @@ public interface PostDAO {
 	public int insertLike(
 			@Param("userId") int userId
 			, @Param("postId") int postId);
+	
+	// 좋아요 삭제
+	public int deleteLike(
+			@Param("userId") int userId
+			, @Param("postId") int postId);
 }

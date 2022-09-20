@@ -78,4 +78,9 @@ public class PostBO {
 	public int addLike(int userId, int postId) {
 		return postDAO.insertLike(userId, postId);
 	}
+	
+	// 좋아요 취소 기능
+	public int deleteLike(int userId, int postId) {
+		return postDAO.deleteLike(userId, postId);
+	}
 }

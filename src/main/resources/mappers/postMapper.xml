@@ -73,4 +73,11 @@
  			, now()
  		)
  	</insert>
+ 	
+ 	<delete id="deleteLike" parameterType="int">
+ 		DELETE FROM
+ 			`like`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</delete>
  </mapper>

@@ -18,9 +18,13 @@
 	<link rel="stylesheet" href="/static/css/timeline.css" type="text/css">
 </head>
 <style>
+	
+	<%--
 	.d-none {
 		display:none;
 	}
+	--%>
+	
 </style>
 <body>
 	<div class="container">
@@ -53,8 +57,8 @@
 						<!-- 아이콘 -->
 						<div class="d-flex">
 							<div class="col-4 d-flex">
-								<a href="#" class="heart" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
-								<a href="#" class="heart" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon d-none"><i class="bi bi-heart-fill"></i></h4></a>
+								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+								<a href="#" class="heart d-none" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill"></i></h4></a>
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
 								<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
 							</div>
@@ -122,8 +126,10 @@
 		$(document).ready(function() {
 			
 			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
+
+			var countheart = false;
+			
 			// $(".heart").css("cursor","pointer").on("click", function() {
-				
 			$(".heart").on("click", function(e) {
 				
 				e.preventDefault();	
@@ -131,23 +137,56 @@
 				
 				let postId = $(this).data("post-id");
 				
-				$.ajax({
-					type:"get"
-					, url:"/post/like"
-					, data:{"postId":postId}
-				
-					, success:function(data) {
-						if(data.result == "success") {
-							location.reload();
-						} else {
-							alert("좋아요 추가 실패");
-						}
-					}
-					, error:function() {
-						alert("좋아요 추가 에러");
-					}
+				if(countheart == false) {
+					$.ajax({
+						type:"get"
+						, url:"/post/like"
+						, data:{"postId":postId}
 					
-				});
+						, success:function(data) {
+							if(data.result == "success") {
+								
+								countheart = true;
+								
+								if(countheart) {
+									$("#offheart" + postId).addClass("d-none");
+									$("#onheart" + postId).removeClass("d-none");
+								} 
+								// location.reload();
+							} else {
+								alert("좋아요 추가 실패");
+							}
+						}
+						, error:function() {
+							alert("좋아요 추가 에러");
+						}
+						
+					});
+					
+				} else {
+					$.ajax({
+						type:"get"
+						, url:"/post/unlike"
+						, data:{"postId":postId}
+					
+						, success:function(data) {
+							countheart = false;
+							
+							if(countheart == false) {
+								$("#offheart" + postId).removeClass("d-none");
+								$("#onheart" + postId).addClass("d-none");
+							}
+						}
+						, error:function() {
+							alert("좋아요 취소 에러");
+						}
+						
+					});
+					
+					
+				}
+				
+				
 			});
 			
 			$(".commentBtn").on("click", function() {

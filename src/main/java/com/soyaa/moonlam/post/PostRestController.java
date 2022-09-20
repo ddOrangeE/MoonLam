@@ -94,4 +94,28 @@ public class PostRestController {
 		return result;
 	}
 
+	// 좋아요 삭제 기능
+	@GetMapping("/unlike")
+	public Map<String, String> deleteLike(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postBO.deleteLike(userId, postId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
+	
+	
 }
