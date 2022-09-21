@@ -61,8 +61,19 @@
 								<!-- data 속성 이름에 절대 대문자 들어가면 안됨! -->
 								<!-- el 태그 : 서버쪽 코드 -->
 								<!-- 자바스크립트 : 클라이언트(브라우저)에서 처리되는 코드 -->
+								
+							<c:choose>
+								<c:when test="${postDetail.likeCountByUserId eq 0 }">
 								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
-								<a href="#" class="heart d-none" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill"></i></h4></a>
+								</c:when>
+								
+								<c:when test="${postDetail.likeCountByUserId ne 0 }">
+								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill"></i></h4></a>
+								</c:when>
+								
+								<c:otherwise></c:otherwise>
+							</c:choose>
+							
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
 								<!-- <a href="#" class="ml-2"><i class="bi bi-send"></i></a>  -->
 							</div>
@@ -79,7 +90,9 @@
 						
 						<!-- 좋아요, 컨텐트 댓글, 댓글달기 -->
 						<div>
-							<span class="ml-2 font-weight-bold">OtherName</span>님 여러 명이 좋아합니다. <br>
+							<c:if test="${postDetail.likeCount > 0 }">
+							<span class="ml-2 font-weight-bold">OtherName</span>님 ${postDetail.likeCount }명이 좋아합니다. <br>
+							</c:if>
 							
 							<div class="mt-2">
 								<b class="ml-2">${postDetail.user.loginId }</b> 

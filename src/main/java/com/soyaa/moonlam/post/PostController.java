@@ -2,6 +2,9 @@ package com.soyaa.moonlam.post;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +22,14 @@ public class PostController {
 	private PostBO postBO;
 	
 	@GetMapping("timeline/view")
-	public String timelineView(Model model) {
+	public String timelineView(Model model
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		int userIdByLogin = (Integer)session.getAttribute("userId");
 	
-		List<PostDetail> postList = postBO.getPostList();
+		List<PostDetail> postList = postBO.getPostList(userIdByLogin);
 		
 		model.addAttribute("postList", postList);
 		

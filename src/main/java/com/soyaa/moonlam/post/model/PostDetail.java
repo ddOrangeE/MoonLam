@@ -6,7 +6,22 @@ public class PostDetail {
 	
 	private Post post;
 	private User user;
+	private int likeCount;
+	private int likeCountByUserId;
 	
+	
+	public int getLikeCountByUserId() {
+		return likeCountByUserId;
+	}
+	public void setLikeCountByUserId(int likeCountByUserId) {
+		this.likeCountByUserId = likeCountByUserId;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
 	public Post getPost() {
 		return post;
 	}
