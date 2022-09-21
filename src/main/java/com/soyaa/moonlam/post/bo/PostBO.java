@@ -67,20 +67,22 @@ public class PostBO {
 		return postDetailList;
 	}
 	
+	// comment 패키지로 이동
 	// 댓글 작성 기능
-	public int addComment(int userId, int postId, String content) {
-		
-		return postDAO.insertComment(userId, postId, content);
-		
-	}
+//	public int addComment(int userId, int postId, String content) {
+//		
+//		return postDAO.insertComment(userId, postId, content);
+//		
+//	}
 	
-	// 좋아요 추가 기능
-	public int addLike(int userId, int postId) {
-		return postDAO.insertLike(userId, postId);
-	}
-	
-	// 좋아요 취소 기능
-	public int deleteLike(int userId, int postId) {
-		return postDAO.deleteLike(userId, postId);
-	}
+	// like 패키지로 이동
+//	// 좋아요 추가 기능
+//	public int addLike(int userId, int postId) {
+//		return postDAO.insertLike(userId, postId);
+//	}
+//	
+//	// 좋아요 취소 기능
+//	public int deleteLike(int userId, int postId) {
+//		return postDAO.deleteLike(userId, postId);
+//	}
 }

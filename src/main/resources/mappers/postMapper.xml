@@ -38,6 +38,7 @@
  			`id` DESC;
  	</select>
  	
+ 	<!-- comment 패키지로 이동 
  	<insert id="insertComment" parameterType="map">
  		INSERT INTO 
  			`comment`
@@ -57,7 +58,9 @@
  			, now()
  		)
  	</insert>
+ 	 -->
  	
+ 	<!-- like 패키지로 이동
  	<insert id="insertLike" parameterType="int">
  		INSERT INTO
  			`like`
@@ -80,4 +83,6 @@
  		WHERE
  			`userId` = #{userId}
  	</delete>
+ 	 -->
+ 	 
  </mapper>

@@ -18,20 +18,22 @@ public interface PostDAO {
 	
 	public List<Post> sellectPostList();
 	
+	// comment 패키지로 이동
 	// 댓글 쓰기
-	public int insertComment(
-			@Param("userId") int userId
-			, @Param("postId") int postId
-			, @Param("content") String content);
+//	public int insertComment(
+//			@Param("userId") int userId
+//			, @Param("postId") int postId
+//			, @Param("content") String content);
 
 	
-	// 좋아요 추가
-	public int insertLike(
-			@Param("userId") int userId
-			, @Param("postId") int postId);
-	
-	// 좋아요 삭제
-	public int deleteLike(
-			@Param("userId") int userId
-			, @Param("postId") int postId);
+	// like 패키지로 이동
+//	// 좋아요 추가
+//	public int insertLike(
+//			@Param("userId") int userId
+//			, @Param("postId") int postId);
+//	
+//	// 좋아요 삭제
+//	public int deleteLike(
+//			@Param("userId") int userId
+//			, @Param("postId") int postId);
 }

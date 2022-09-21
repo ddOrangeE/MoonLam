@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagerService {
 	
-//	public static final String FILE_UPLOAD_PATH = "D:\\99김소연\\spring\\moonlam\\upload";	
-	public static final String FILE_UPLOAD_PATH = "D:\\김소연99\\spring\\moonlam\\upload";	
+	public static final String FILE_UPLOAD_PATH = "D:\\99김소연\\spring\\moonlam\\upload";	
+//	public static final String FILE_UPLOAD_PATH = "D:\\김소연99\\spring\\moonlam\\upload";	
 
 	// import 해주기
 	// org.slf4j.Logger;

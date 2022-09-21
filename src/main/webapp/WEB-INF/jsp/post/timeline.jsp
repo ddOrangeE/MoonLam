@@ -54,9 +54,13 @@
 						</div>
 						<!-- 이미지 -->
 						
+						<!-- class 는 대문자 말고 - 로 만들면 좋다!! -->
 						<!-- 아이콘 -->
 						<div class="d-flex">
 							<div class="col-4 d-flex">
+								<!-- data 속성 이름에 절대 대문자 들어가면 안됨! -->
+								<!-- el 태그 : 서버쪽 코드 -->
+								<!-- 자바스크립트 : 클라이언트(브라우저)에서 처리되는 코드 -->
 								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
 								<a href="#" class="heart d-none" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill"></i></h4></a>
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
@@ -99,7 +103,7 @@
 							
 							<div class="d-flex mt-3">
 								<input type="text" class="text-secondary form-control border-0" placeholder="댓글 달기..." id="commentInput${postDetail.post.id }">
-								<button type="button" class="commentBtn btn btn-dark" data-post-id="${postDetail.post.id }">입력</button>
+								<button type="button" class="comment-btn btn btn-dark" data-post-id="${postDetail.post.id }">입력</button>
 							</div>
 							
 						</div>
@@ -125,18 +129,41 @@
 	<script>
 		$(document).ready(function() {
 			
-			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
 
-			var countheart = false;
+			// var countheart = false;
 			
+			// 좋아요 추가
+
+			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
 			// $(".heart").css("cursor","pointer").on("click", function() {
 			$(".heart").on("click", function(e) {
 				
 				e.preventDefault();	
 				
-				
+				// this : 지금 현재 이벤트가 발생된 객체
 				let postId = $(this).data("post-id");
 				
+				$.ajax({
+					type:"get"
+					, url:"/post/like"
+					, data:{"postId":postId}
+				
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 추가 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 추가 에러");
+					}
+					
+				});				
+				
+				
+				/*
+			 이렇게 해도 되지만 다시 좋아요 개수를 조회하는 과정으로 돌아가면 더 좋기 때문에 location.reload 사용
 				if(countheart == false) {
 					$.ajax({
 						type:"get"
@@ -152,7 +179,9 @@
 									$("#offheart" + postId).addClass("d-none");
 									$("#onheart" + postId).removeClass("d-none");
 								} 
-								// location.reload();
+								
+								
+								location.reload();
 							} else {
 								alert("좋아요 추가 실패");
 							}
@@ -161,8 +190,7 @@
 							alert("좋아요 추가 에러");
 						}
 						
-					});
-					
+					});				
 				} else {
 					$.ajax({
 						type:"get"
@@ -170,12 +198,17 @@
 						, data:{"postId":postId}
 					
 						, success:function(data) {
+							
+							
 							countheart = false;
 							
 							if(countheart == false) {
 								$("#offheart" + postId).removeClass("d-none");
 								$("#onheart" + postId).addClass("d-none");
 							}
+							
+							
+							location.reload();
 						}
 						, error:function() {
 							alert("좋아요 취소 에러");
@@ -185,11 +218,13 @@
 					
 					
 				}
+				*/
 				
 				
 			});
 			
-			$(".commentBtn").on("click", function() {
+			// 댓글 입력
+			$(".comment-btn").on("click", function(e) {
 				
 				let postId = $(this).data("post-id");		
 				
