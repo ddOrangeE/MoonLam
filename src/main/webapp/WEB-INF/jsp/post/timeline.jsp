@@ -69,13 +69,13 @@
 								
 								<%--로그인한 사용자가 좋아요한 게시물 --%>
 								<c:when test="${postDetail.like }">
-								<a href="#" class="onheart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill text-danger"></i></h4></a>
+								<a href="#" class="on-heart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill text-danger"></i></h4></a>
 								</c:when>
 								
 								<%-- is로 시작하는 값은 is를 제외한 값만 써줘야 한다 --%>
 								<%--로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
 								<c:otherwise>
-								<a href="#" class="offheart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+								<a href="#" class="off-heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
 								</c:otherwise>
 	
 							</c:choose>
@@ -168,7 +168,36 @@
 	<script>
 		$(document).ready(function() {
 			
+			// 좋아요 취소
+			$(".on-heart").on("click", function(e){
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/unlike"
+					, data:{"postId":postId}
+				
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("좋아요 취소 실패");
+						}
+					}
+					, error:function() {
+						alert("좋아요 취소 에러");
+					}
+				});
+				
 			
+			
+			});
+			
+			
+			
+			// 댓글 2개만 보기
 			$(".comment-basic-btn").on("click", function(e) {
 				e.preventDefault();
 				
@@ -181,6 +210,7 @@
 				
 			});
 			
+			// 댓글 모두 보기
 			$(".comment-detail-btn").on("click", function(e) {
 				e.preventDefault();
 			
@@ -200,7 +230,7 @@
 
 			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
 			// $(".heart").css("cursor","pointer").on("click", function() {
-			$(".offheart").on("click", function(e) {
+			$(".off-heart").on("click", function(e) {
 				
 				e.preventDefault();	
 				
