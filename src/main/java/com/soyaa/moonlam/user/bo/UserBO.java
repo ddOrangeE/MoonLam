@@ -28,13 +28,13 @@ public class UserBO {
 		String phEmail = null;
 		String loginId = null;
 		
-//		String phonePattern = "/^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/";
-		String phonePattern = "/^[0-9]{3}-[0-9]{3,4}-[0-9]{4}/\r\n";
+		String phonePattern = "^01[01]-?([0-9]{3,4})-?([0-9]{4})$";
+//		String phonePattern = "^[0-9]{3}-[0-9]{3,4}-[0-9]{4}";
 		
-		String emailPattern = "/^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$/i\r\n";
+		String emailPattern = "^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$";
 		
 		String encryptPassword = EncryptUtils.md5(password);
-		
+//		if (id.matches(phonePattern) || id.matches(emailPattern))
 //		 if(RegexMatcher.matches(phonePattern, id) || RegexMatcher.matches(emailPattern, id)) {
 //			 
 //			 phEmail = id;

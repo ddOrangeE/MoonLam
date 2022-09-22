@@ -12,15 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileManagerService {
 	
-	public static final String FILE_UPLOAD_PATH = "D:\\99김소연\\spring\\moonlam\\upload";	
-//	public static final String FILE_UPLOAD_PATH = "D:\\김소연99\\spring\\moonlam\\upload";	
+//	public static final String FILE_UPLOAD_PATH = "D:\\99김소연\\spring\\moonlam\\upload";	
+	public static final String FILE_UPLOAD_PATH = "D:\\김소연99\\spring\\moonlam\\upload";	
 
 	// import 해주기
 	// org.slf4j.Logger;
 	// org.slf4j.LoggerFactory; 
 	private static Logger logger = LoggerFactory.getLogger(FileManagerService.class);
 	
-	// 파일을 저장할 수 있는 클래스
+	// 파일을 저장할 수 있는 메소드
 	public static String saveFile(int userId, MultipartFile file) {
 		
 		// 같은 이름을 가진 파일이 문제가 없도록 파일을 저장할 디렉토리를 만든다.
