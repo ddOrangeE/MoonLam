@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soyaa.moonlam.common.FileManagerService;
+import com.soyaa.moonlam.post.comment.bo.CommentBO;
+import com.soyaa.moonlam.post.comment.model.CommentDetail;
 import com.soyaa.moonlam.post.dao.PostDAO;
 import com.soyaa.moonlam.post.like.bo.LikeBO;
-import com.soyaa.moonlam.post.like.model.Like;
 import com.soyaa.moonlam.post.model.Post;
 import com.soyaa.moonlam.post.model.PostDetail;
 import com.soyaa.moonlam.user.bo.UserBO;
@@ -27,6 +28,9 @@ public class PostBO {
 	
 	@Autowired
 	private LikeBO likeBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	// 게시글 정보를 전달 받아서 저장하는 기능
 	public int addPost(int userId, String content, MultipartFile file) {
@@ -65,6 +69,9 @@ public class PostBO {
 			// postId, userId 를 통해서 user의 좋아요 개수를 가지고 오는 기능
 			int likeCountByUserId = likeBO.getLikeCountByUserIdAndPostId(userIdByLogin, postId);
 			
+			// postId 를 통해서 댓글 List 를 가지고 오는 기능
+			List<CommentDetail> commentDetailList = commentBO.getCommentListByPostId(postId);
+			
 			// Post 객체와 User 을 하나로 묶어야 같이 사용할 수 있다 -> 합쳐서 처리할 새로운 클래스 필요하다! (PostDetail)
 			
 			// 직접 객체를 만들어서 데이터를 관리하는 방법 -> (DTO) BO 에서 가장 일반적으로 사용하는 방법
@@ -74,6 +81,7 @@ public class PostBO {
 			postDetail.setUser(user);
 			postDetail.setLikeCount(likeCount);
 			postDetail.setLikeCountByUserId(likeCountByUserId);
+			postDetail.setCommentDetailList(commentDetailList);
 			
 			postDetailList.add(postDetail);
 		}

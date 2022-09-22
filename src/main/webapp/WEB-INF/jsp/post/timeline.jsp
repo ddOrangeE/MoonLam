@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,12 +102,21 @@
 							</div>
 							
 							<div class="mt-2">
-								<a href="#" class="ml-2">댓글 9개 모두 보기</a> <br>
+							
+								<c:if test="${fn:length(postDetail.commentDetailList) > 0 }">
+								<a href="#" class="ml-2">댓글 <c:out value="${fn:length(postDetail.commentDetailList) }" />개 모두 보기</a> <br>
+								</c:if>
 							</div>
 							
 							<div class="mt-2">
-								<span class="ml-2 font-weight-bold">OtherName</span> 언니.. <br>
-								<span class="ml-2 font-weight-bold">OtherName</span> ...hihi <br>
+								
+								<c:forEach var="comment" items="${postDetail.commentDetailList }">
+								<span class="ml-2 font-weight-bold">
+									<c:out value="${comment.user.loginId }" />
+								</span> 
+									<c:out value="${comment.comment.content }" />
+								<br>
+								</c:forEach>
 							</div>
 							
 							<div class="mt-2">

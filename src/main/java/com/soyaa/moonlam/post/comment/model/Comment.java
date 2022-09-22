@@ -1,9 +1,9 @@
-package com.soyaa.moonlam.post.model;
+package com.soyaa.moonlam.post.comment.model;
 
 import java.util.Date;
 
 public class Comment {
-	
+
 	private int id;
 	private int userId;
 	private int postId;
@@ -47,5 +47,5 @@ public class Comment {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+	
 }

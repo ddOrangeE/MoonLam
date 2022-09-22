@@ -1,5 +1,8 @@
 package com.soyaa.moonlam.post.model;
 
+import java.util.List;
+
+import com.soyaa.moonlam.post.comment.model.CommentDetail;
 import com.soyaa.moonlam.user.model.User;
 
 public class PostDetail {
@@ -8,8 +11,14 @@ public class PostDetail {
 	private User user;
 	private int likeCount;
 	private int likeCountByUserId;
+	private List<CommentDetail> commentDetailList;
 	
-	
+	public List<CommentDetail> getCommentDetailList() {
+		return commentDetailList;
+	}
+	public void setCommentDetailList(List<CommentDetail> commentDetailList) {
+		this.commentDetailList = commentDetailList;
+	}
 	public int getLikeCountByUserId() {
 		return likeCountByUserId;
 	}
