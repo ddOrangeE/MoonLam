@@ -24,13 +24,20 @@ public class LikeBO {
 		return likeDAO.deleteLike(userId, postId);
 	}
 	
-	// 포스터 좋아요 개수
+	// 게시글별 좋아요 개수 얻는 기능
 	public int getLikeCountByPostId(int postId) {
 		return likeDAO.selectLikeCountByPostId(postId);
 	}
 	
-	// 로그인한 사용자가 포스터 좋아요를 눌렀는지
-	public int getLikeCountByUserIdAndPostId(int userId, int postId) {
-		return likeDAO.selectLikeCountByUserIdAndPostId(userId, postId);
+	// 특정 사용자가 특정 게시글에 좋아요 여부 확인 기능
+	public boolean isLike(int userId, int postId) {
+		int count = likeDAO.selectLikeCountByUserIdAndPostId(userId, postId);
+		
+		// count == 0 이면 좋아요 하지 않았다.
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

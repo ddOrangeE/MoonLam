@@ -10,27 +10,9 @@ public class PostDetail {
 	private Post post;
 	private User user;
 	private int likeCount;
-	private int likeCountByUserId;
+	private boolean isLike;
 	private List<CommentDetail> commentDetailList;
 	
-	public List<CommentDetail> getCommentDetailList() {
-		return commentDetailList;
-	}
-	public void setCommentDetailList(List<CommentDetail> commentDetailList) {
-		this.commentDetailList = commentDetailList;
-	}
-	public int getLikeCountByUserId() {
-		return likeCountByUserId;
-	}
-	public void setLikeCountByUserId(int likeCountByUserId) {
-		this.likeCountByUserId = likeCountByUserId;
-	}
-	public int getLikeCount() {
-		return likeCount;
-	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
 	public Post getPost() {
 		return post;
 	}
@@ -42,5 +24,23 @@ public class PostDetail {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public boolean isLike() {
+		return isLike;
+	}
+	public void setLike(boolean isLike) {
+		this.isLike = isLike;
+	}
+	public List<CommentDetail> getCommentDetailList() {
+		return commentDetailList;
+	}
+	public void setCommentDetailList(List<CommentDetail> commentDetailList) {
+		this.commentDetailList = commentDetailList;
 	}
 }

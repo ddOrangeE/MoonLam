@@ -65,15 +65,19 @@
 								<!-- 자바스크립트 : 클라이언트(브라우저)에서 처리되는 코드 -->
 								
 							<c:choose>
-								<c:when test="${postDetail.likeCountByUserId eq 0 }">
-								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+							
+								
+								<%--로그인한 사용자가 좋아요한 게시물 --%>
+								<c:when test="${postDetail.like }">
+								<a href="#" class="onheart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill text-danger"></i></h4></a>
 								</c:when>
 								
-								<c:when test="${postDetail.likeCountByUserId ne 0 }">
-								<a href="#" class="heart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill"></i></h4></a>
-								</c:when>
-								
-								<c:otherwise></c:otherwise>
+								<%-- is로 시작하는 값은 is를 제외한 값만 써줘야 한다 --%>
+								<%--로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
+								<c:otherwise>
+								<a href="#" class="offheart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+								</c:otherwise>
+	
 							</c:choose>
 							
 								<a href="#"><h4 class="ml-3 text-dark"><i class="bi bi-chat"></i></h4></a>
@@ -103,13 +107,24 @@
 							
 							<div class="mt-2">
 							
-								<c:if test="${fn:length(postDetail.commentDetailList) > 0 }">
-								<a href="#" class="ml-2">댓글 <c:out value="${fn:length(postDetail.commentDetailList) }" />개 모두 보기</a> <br>
+								<c:if test="${fn:length(postDetail.commentDetailList) > 2 }">
+								<a href="#" class="ml-2 comment-detail-btn" id="commentDetailBtn${postDetail.post.id }" data-post-id="${postDetail.post.id }">댓글 <c:out value="${fn:length(postDetail.commentDetailList) }" />개 모두 보기</a>
+								<a href="#" class="ml-2 d-none comment-basic-btn" id="commentBasicBtn${postDetail.post.id }" data-post-id="${postDetail.post.id }">댓글 접기</a>
 								</c:if>
+								
 							</div>
 							
-							<div class="mt-2">
-								
+							<div class="mt-2" id="commentBasic${postDetail.post.id }">
+								<c:forEach var="comment" items="${postDetail.commentDetailList }" begin="0" end="1">
+								<span class="ml-2 font-weight-bold">
+									<c:out value="${comment.user.loginId }" />
+								</span> 
+									<c:out value="${comment.comment.content }" />
+								<br>
+								</c:forEach>
+							</div>
+							
+							<div class="mt-2 d-none" id="commentAll${postDetail.post.id }">
 								<c:forEach var="comment" items="${postDetail.commentDetailList }">
 								<span class="ml-2 font-weight-bold">
 									<c:out value="${comment.user.loginId }" />
@@ -153,6 +168,31 @@
 	<script>
 		$(document).ready(function() {
 			
+			
+			$(".comment-basic-btn").on("click", function(e) {
+				e.preventDefault();
+				
+				let postId = $(this).data("post-id");
+				
+				$("#commentBasic" + postId).removeClass("d-none");
+				$("#commentAll" + postId).addClass("d-none");
+				$("#commentDetailBtn" + postId).removeClass("d-none");
+				$("#commentBasicBtn" + postId).addClass("d-none");
+				
+			});
+			
+			$(".comment-detail-btn").on("click", function(e) {
+				e.preventDefault();
+			
+				let postId = $(this).data("post-id");
+				
+				$("#commentBasic" + postId).addClass("d-none");
+				$("#commentAll" + postId).removeClass("d-none");
+				$("#commentDetailBtn" + postId).addClass("d-none");
+				$("#commentBasicBtn" + postId).removeClass("d-none");
+				
+			});
+			
 
 			// var countheart = false;
 			
@@ -160,7 +200,7 @@
 
 			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
 			// $(".heart").css("cursor","pointer").on("click", function() {
-			$(".heart").on("click", function(e) {
+			$(".offheart").on("click", function(e) {
 				
 				e.preventDefault();	
 				

@@ -31,7 +31,7 @@
  	
  	<select id="selectLikeCountByPostId" parameterType="int" resultType="int">
  		SELECT 
- 			COUNT(*)
+ 			count(*)
  		FROM
  			`like`
  		WHERE
@@ -40,7 +40,7 @@
  	
  	 <select id="selectLikeCountByUserIdAndPostId" parameterType="map" resultType="int">
  		SELECT 
- 			COUNT(*)
+ 			count(*)
  		FROM
  			`like`
  		WHERE

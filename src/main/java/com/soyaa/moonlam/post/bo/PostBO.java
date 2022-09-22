@@ -48,7 +48,7 @@ public class PostBO {
 	}
 	
 	// 모든 게시글을 다 가지고 오는 기능
-	public List<PostDetail> getPostList(int userIdByLogin) {
+	public List<PostDetail> getPostList(int loginUserId) {
 		
 		// 게시글 하나당 작성자 정보를 조합하는 과정
 		List<Post> postList = postDAO.sellectPostList();
@@ -63,14 +63,13 @@ public class PostBO {
 			User user = userBO.getUserById(userId);
 			
 			// postId 를 통해서 좋아요 개수를 가져오는 기능
-			int postId = post.getId();
-			int likeCount = likeBO.getLikeCountByPostId(postId);
+			int likeCount = likeBO.getLikeCountByPostId(post.getId());
 			
 			// postId, userId 를 통해서 user의 좋아요 개수를 가지고 오는 기능
-			int likeCountByUserId = likeBO.getLikeCountByUserIdAndPostId(userIdByLogin, postId);
+			boolean isLike = likeBO.isLike(loginUserId, post.getId());
 			
 			// postId 를 통해서 댓글 List 를 가지고 오는 기능
-			List<CommentDetail> commentDetailList = commentBO.getCommentListByPostId(postId);
+			List<CommentDetail> commentDetailList = commentBO.getCommentListByPostId(post.getId());
 			
 			// Post 객체와 User 을 하나로 묶어야 같이 사용할 수 있다 -> 합쳐서 처리할 새로운 클래스 필요하다! (PostDetail)
 			
@@ -80,7 +79,7 @@ public class PostBO {
 			postDetail.setPost(post);
 			postDetail.setUser(user);
 			postDetail.setLikeCount(likeCount);
-			postDetail.setLikeCountByUserId(likeCountByUserId);
+			postDetail.setLike(isLike);  // boolean 은 getter, setter 규칙이 다르다.
 			postDetail.setCommentDetailList(commentDetailList);
 			
 			postDetailList.add(postDetail);
