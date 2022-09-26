@@ -48,7 +48,11 @@
 							<!-- 이름 -->
 							<h3 class="ml-2">${postDetail.user.loginId }</h3>
 						<!-- 삭제버튼 -->
+						
+						<%-- 해당 게시글이 로그인한 사용자의 게시글인 경우 more 버튼 노출 --%>
+						<c:if test="${userId eq postDetail.user.id }">
 							<a href="#" class="more-btn" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
+						</c:if>
 						</div>
 						
 						<!-- 이미지 -->
