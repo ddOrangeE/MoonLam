@@ -46,7 +46,7 @@ public class LikeRestController {
 
 	// 좋아요 삭제 기능
 	@GetMapping("/unlike")
-	public Map<String, String> deleteLike(
+	public Map<String, String> unlike(
 			@RequestParam("postId") int postId
 			, HttpServletRequest request) {
 		

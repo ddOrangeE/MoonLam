@@ -19,4 +19,7 @@ public interface CommentDAO {
 	// 댓글 보여주는 기능 - timeline.jsp
 	public List<Comment> selectCommentListByPostId(int postId);
 	
+	// 게시글 삭제 (관련된 댓글 삭제)
+	public int deleteCommentByPostId(@Param("postId") int postId);
+	
 }

@@ -28,4 +28,7 @@ public interface LikeDAO {
 	public int selectLikeCountByUserIdAndPostId(
 			@Param("userId") int userId
 			, @Param("postId") int postId);
+	
+	// 게시물 삭제 (관련된 좋아요 삭제)
+	public int deleteLikeByPostId(@Param("postId") int postId);
 }

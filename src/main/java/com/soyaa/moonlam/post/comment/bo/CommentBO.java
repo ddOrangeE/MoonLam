@@ -52,4 +52,9 @@ public class CommentBO {
 		
 		return commentDetailList;
 	}
+	
+	// 게시글 삭제 (관련된 댓글 삭제)
+	public int deleteCommenteByPostId(int postId) {
+		return commentDAO.deleteCommentByPostId(postId);
+	}
 }

@@ -106,4 +106,25 @@ public class PostBO {
 //	public int deleteLike(int userId, int postId) {
 //		return postDAO.deleteLike(userId, postId);
 //	}
+	
+	// 게시물 삭제
+	public int deletePost(int postId, int userId) {
+		
+		Post post = postDAO.selectPostByIdAndUserId(postId, userId);
+		
+		if(post == null) {
+			return 0;
+		}
+		
+		// 게시글과 연결된 파일 삭제
+		FileManagerService.removeFile(post.getImagePath());
+		
+		// 좋아요 삭제
+		likeBO.deleteLikeByPostId(postId);
+		
+		// 댓글 삭제
+		commentBO.deleteCommenteByPostId(postId);
+		
+		return postDAO.deletePost(postId);
+	}
 }

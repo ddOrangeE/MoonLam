@@ -36,4 +36,10 @@ public interface PostDAO {
 //	public int deleteLike(
 //			@Param("userId") int userId
 //			, @Param("postId") int postId);
+	
+	// 아이디 기반으로 post 조회하는 기능
+	public Post selectPostByIdAndUserId(@Param("id") int id, @Param("userId") int userId);
+	
+	// 게시물 삭제
+	public int deletePost(@Param("postId") int postId);
 }

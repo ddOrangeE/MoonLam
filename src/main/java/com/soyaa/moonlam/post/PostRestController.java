@@ -120,5 +120,26 @@ public class PostRestController {
 //		return result;
 //	}
 	
+	// 게시물 삭제 (로그인한 사용자가 자신의 게시물만 삭제 가능하도록)
+	@GetMapping("/delete")
+	public Map<String, String> deletePost(
+			@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		int count = postBO.deletePost(postId, userId);
+		
+		Map<String, String> result = new HashMap<>();
+		
+		if(count == 1) {
+			result.put("result", "success");
+		} else {
+			result.put("result", "fail");
+		}
+		
+		return result;
+	}
 	
 }

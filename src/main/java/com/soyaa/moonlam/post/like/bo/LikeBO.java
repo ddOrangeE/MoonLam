@@ -40,4 +40,9 @@ public class LikeBO {
 			return true;
 		}
 	}
+	
+	// 게시물 삭제 (관련된 좋아요 삭제)
+	public int deleteLikeByPostId(int postId) {
+		return likeDAO.deleteLikeByPostId(postId);
+	}
 }

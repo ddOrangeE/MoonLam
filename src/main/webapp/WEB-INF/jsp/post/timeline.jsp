@@ -47,7 +47,8 @@
 						<div class="d-flex justify-content-between">
 							<!-- 이름 -->
 							<h3 class="ml-2">${postDetail.user.loginId }</h3>
-							<a href="#"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
+						<!-- 삭제버튼 -->
+							<a href="#" class="more-btn" data-post-id="${postDetail.post.id }" data-toggle="modal" data-target="#moreModal"><h3 class="pb-1 text-secondary"><i class="bi bi-three-dots-vertical"></i></h3></a>
 						</div>
 						
 						<!-- 이미지 -->
@@ -65,17 +66,15 @@
 								<!-- 자바스크립트 : 클라이언트(브라우저)에서 처리되는 코드 -->
 								
 							<c:choose>
-							
-								
 								<%--로그인한 사용자가 좋아요한 게시물 --%>
 								<c:when test="${postDetail.like }">
-								<a href="#" class="on-heart" data-post-id="${postDetail.post.id }" id="onheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill text-danger"></i></h4></a>
+								<a href="#" class="unlike-btn" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart-fill text-danger"></i></h4></a>
 								</c:when>
 								
 								<%-- is로 시작하는 값은 is를 제외한 값만 써줘야 한다 --%>
 								<%--로그인한 사용자가 좋아요를 하지 않은 게시물 --%>
 								<c:otherwise>
-								<a href="#" class="off-heart" data-post-id="${postDetail.post.id }" id="offheart${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
+								<a href="#" class="like-btn" data-post-id="${postDetail.post.id }"><h4 class="text-dark heart-icon"><i class="bi bi-heart"></i></h4></a>
 								</c:otherwise>
 	
 							</c:choose>
@@ -165,11 +164,58 @@
 	</div>
 	<!-- 전체 -->
 	
+	<!-- Modal -->
+	<div class="modal fade" id="moreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center">
+				<a href="#" id="deleteBtn">삭제하기</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script>
 		$(document).ready(function() {
+		
+			$("#deleteBtn").on("click", function(e) {
+				e.preventDefault();
+			
+				let postId = $(this).data("post-id");
+				
+				$.ajax({
+					type:"get"
+					, url:"/post/delete"
+					, data:{"postId":postId}
+					, success:function(data) {
+						if(data.result == "success") {
+							location.reload();
+						} else {
+							alert("삭제 실패");
+						}
+					}
+					, error:function() {
+						alert("삭제 에러");
+					}
+				});
+				
+				
+			});
+			
+			
+			$(".more-btn").on("click", function() {
+			
+				// 모달의 삭제하기 a 태그에 data-post-id 속성에,
+				// 현재 more-btn이 포함된 postId 를 저장한다.
+				let postId = $(this).data("post-id");
+				
+				$("#deleteBtn").data("post-id", postId);
+				
+			});
+			
 			
 			// 좋아요 취소
-			$(".on-heart").on("click", function(e){
+			$(".unlike-btn").on("click", function(e){
 				e.preventDefault();
 				
 				let postId = $(this).data("post-id");
@@ -230,7 +276,7 @@
 
 			// 커서 올리면 손모양으로 변환 .css("cursor","pointer") : 흔하게 쓰는 방식은 아님
 			// $(".heart").css("cursor","pointer").on("click", function() {
-			$(".off-heart").on("click", function(e) {
+			$(".like-btn").on("click", function(e) {
 				
 				e.preventDefault();	
 				
