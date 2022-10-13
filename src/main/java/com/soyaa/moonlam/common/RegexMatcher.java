@@ -12,6 +12,8 @@ public class RegexMatcher {
 		Matcher m = p.matcher(input);
 		
 		return m.matches();
+		
+//		"ㅁㅁㅁ".matches(regex)
 	}
 	
 }
